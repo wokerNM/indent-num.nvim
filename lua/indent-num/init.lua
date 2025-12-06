@@ -54,6 +54,6 @@ function M.setup()
 	)
 end
 
-require("indent-num").setup()
+M.setup()
 
 return M
