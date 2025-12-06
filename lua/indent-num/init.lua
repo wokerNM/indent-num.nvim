@@ -54,6 +54,7 @@ function M.setup()
 	)
 end
 
-M.setup()
-
+if vim.fn.has("nvim") == 1 then
+	M.setup()
+end
 return M
