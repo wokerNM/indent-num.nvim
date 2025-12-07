@@ -5,7 +5,9 @@ local function adjust_indent(count, direction)
 	count = math.max(count, 1)
 
 	local indent_cmd = direction == "indent" and ">>" or "<<"
-	vim.cmd("normal! " .. string.rep(indent_cmd, count))
+	for _ = 1, count do
+		vim.cmd("normal! " .. indent_cmd)
+	end
 end
 
 function M.Indentnum(count)
