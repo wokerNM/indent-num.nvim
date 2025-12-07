@@ -1,43 +1,29 @@
 local M = {}
 
-function M.Indentnum(count)
+local function adjust_indent(count, direction)
 	count = tonumber(count) or 1
 	count = math.max(count, 1)
 
-	for _ = 1, count do
-		vim.cmd("normal! >>")
-	end
+	local indent_cmd = direction == "indent" and ">>" or "<<"
+	vim.cmd("normal! " .. string.rep(indent_cmd, count))
+end
+
+function M.Indentnum(count)
+	adjust_indent(count, "indent")
 end
 
 function M.Unindentnum(count)
-	count = tonumber(count) or 1
-	count = math.max(count, 1)
-
-	for _ = 1, count do
-		vim.cmd("normal! <<")
-	end
+	adjust_indent(count, "unindent")
 end
 
 function M.setup()
 	vim.api.nvim_create_user_command("Indentnum", function(opts)
-		local count = tonumber(opts.args) or 1
-		count = math.max(count, 1)
-		for _ = 1, count do
-			vim.cmd("normal! >>")
-		end
-	end, {
-		nargs = "?",
-	})
+		M.Indentnum(opts.args)
+	end, { nargs = "?" })
 
 	vim.api.nvim_create_user_command("Unindentnum", function(opts)
-		local count = tonumber(opts.args) or 1
-		count = math.max(count, 1)
-		for _ = 1, count do
-			vim.cmd("normal! <<")
-		end
-	end, {
-		nargs = "?",
-	})
+		M.Unindentnum(opts.args)
+	end, { nargs = "?" })
 
 	vim.api.nvim_set_keymap(
 		"n",
