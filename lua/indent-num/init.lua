@@ -4,9 +4,12 @@ local function adjust_indent(count, direction)
 	count = tonumber(count) or 1
 	count = math.max(count, 1)
 
-	local indent_cmd = direction == "indent" and ">>" or "<<"
 	for _ = 1, count do
-		vim.cmd("normal! " .. indent_cmd)
+		if direction == "indent" then
+			vim.cmd("normal! >>")
+		else
+			vim.cmd("normal! <<")
+		end
 	end
 end
 
