@@ -2,8 +2,7 @@ Installation:
 
 ```lua
 return {
-    "wokerNM/indent-num.nvim"
-    lazy = false,
+    "wokerNM/indent-num.nvim",
     opts = {}
 }
 ```
